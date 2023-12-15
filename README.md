@@ -1,13 +1,13 @@
 # Cloudflare with DigitalOcean Kubernetes for DDoS, WAF, and Other Services
 
 ## Problem Statement
-DigitalOcean provides managed Kubernetes service (DOKS) with basic DDoS protection. When someone runs an application in DOKS, they may want to have advanced DDoS protection, Web Application Firewall (WAF), and similar services that Cloudflare provides. This tutorial will describe how to put a Cloudflare service in front of DOKS.
+DigitalOcean offers a managed Kubernetes service (DOKS) with basic DDoS protection. When running an application in DOKS, users might require advanced DDoS protection, a Web Application Firewall (WAF), and other similar services that Cloudflare provides. This tutorial will describe how to integrate Cloudflare services with DOKS.
 
 ## Architecture
-Let's imagine there's a web application running in DOKS. The application is a Kubernetes Deployment with a Service that publicly exposes this application via DigitalOcean's managed load balancer on port 443. To access an application a client would connect via HTTPs to Cloudflare. Cloudflare will inspect the request. If the request is malicious, Cloudflare would drop it. If the request is legitimate, it will get proxied to DigitalOcean over HTTPs. Managed Load Balancer would receive the request, terminate TLS and redirect the request to one of the worker nodes over HTTP. Terminating TLS on a load balancer is convenient to maintain TLS certificate in a single central point and to avoid maintaining TLS certificates decentralized on worker nodes. The application will respond back to the client over the same chain of proxies back.
+Let's imagine a web application running in DOKS. This application is a Kubernetes Deployment with a Service that publicly exposes it via DigitalOcean's managed load balancer. To access the application, a client connects via HTTPS to Cloudflare. Cloudflare inspects the request. If the request is malicious, Cloudflare drops it. If the request is legitimate, it gets proxied to DigitalOcean over HTTPS. The load balancer on DigitalOcean receives the request, terminates TLS, and redirects it unencrypted over HTTP to one of the worker nodes. Terminating TLS on a load balancer is convenient for maintaining the TLS certificate at a single central point, thus avoiding the need to manage TLS certificates in a decentralized manner on worker nodes. The application then responds to the client through the same chain of proxies.
 
 ## Configuration Prerequisites
-You have to get this configured on your computer:
+Ensure the following tools are configured on your computer:
 - doctl
 - kubectl
 - jq
