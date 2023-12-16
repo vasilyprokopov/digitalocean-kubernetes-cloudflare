@@ -8,9 +8,9 @@ Let's imagine a web application running in DOKS. This application is a Kubernete
 
 ## Configuration Prerequisites
 Ensure the following tools are configured on your computer:
-- doctl
-- kubectl
-- jq
+- [doctl](https://docs.digitalocean.com/reference/doctl/how-to/install/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [jq](https://stedolan.github.io/jq/download/)
 
 ## Configuration
 
