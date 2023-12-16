@@ -102,7 +102,7 @@ In the previous step, we imported the origin certificate from Cloudflare to Digi
 doctl compute certificate list
 ```
 
-Note that the allow rules in `service.beta.kubernetes.io/do-loadbalancer-allow-rules` only list Cloudflare's IP ranges. This means that the load balancer will only accept traffic coming from Cloudflare. Clients won't be able to circumvent Cloudflare by directly connecting to a load balancer's IP address on DigitalOcean. An up-to-date list of Cloudflare's IPs is available here: [Cloudflare IP Ranges](https://www.cloudflare.com/ips/)
+Note that the allow rules in `service.beta.kubernetes.io/do-loadbalancer-allow-rules` only list Cloudflare's IP ranges. This means that the load balancer will only accept traffic coming from Cloudflare. Clients won't be able to circumvent Cloudflare by directly connecting to a load balancer's IP address on DigitalOcean. An up-to-date list of Cloudflare's IPs is available on the [Cloudflare IP Ranges](https://www.cloudflare.com/ips/) page.
 
 You can create this application in Kubernetes by applying the manifest file:
 ```bash
@@ -116,7 +116,28 @@ kubectl get services -o wide
 
 Note down the EXTERNAL-IP address. In Cloudflare, navigate back to your domain > DNS > Records and add an A-record pointing to this address.
 
+This is all the required configuration. It's now time to verify the setup.
+
 ## Verification
-- Traffic will get encrypted between client and Cloudflare.
+We will use `curl` to verify our Kubernetes application, which runs an [echo server](https://github.com/Ealenn/Echo-Server). An echo server is a type of server that replicates the HTTPS request sent by the client and presents it back. Below is an example of the reply. I've only included the part with the headers that we are interested in.
+
+```json
+"headers": {
+  "host": "cloudsandbox.online",
+  "accept-encoding": "gzip",
+  "x-forwarded-for": "32.185.143.12,172.71.103.51",
+  "cf-ray": "835fdzzc4a665e-AMS",
+  "x-forwarded-proto": "https",
+  "cf-visitor": "{\"scheme\":\"https\"}",
+  "user-agent": "curl/8.1.2",
+  "accept": "*/*",
+  "cf-connecting-ip": "32.185.143.12",
+  "cdn-loop": "cloudflare",
+  "cf-ipcountry": "NL",
+  "x-forwarded-port": "443"
+}
+````
+
+- Traffic will get encrypted between the client and Cloudflare.
 - Traffic will get encrypted between Cloudflare and DigitalOcean load balancer.
 - Traffic will not get encrypted between load balancer and Kubernetes worker nodes.
