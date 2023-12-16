@@ -100,6 +100,7 @@ In the previous step, we imported the origin certificate from Cloudflare to Digi
 
 ```bash
 doctl compute certificate list
+```
 
 Note that the allow rules in `service.beta.kubernetes.io/do-loadbalancer-allow-rules` only list Cloudflare's IP ranges. This means that the load balancer will only accept traffic coming from Cloudflare. Clients won't be able to circumvent Cloudflare by directly connecting to a load balancer's IP address on DigitalOcean. An up-to-date list of Cloudflare's IPs is available here: [Cloudflare IP Ranges](https://www.cloudflare.com/ips/)
 
