@@ -1,4 +1,4 @@
-# DigitalOcean Kubernetes with Cloudflare for DDoS, WAF
+# Integrating DigitalOcean Kubernetes with Cloudflare for Enhanced Security
 
 ## Problem Statement
 DigitalOcean offers a managed Kubernetes service (DOKS) with basic DDoS protection. When running an application in DOKS, users might require advanced DDoS protection, a Web Application Firewall (WAF), and other similar services that Cloudflare provides. This tutorial will describe how to integrate Cloudflare services with DOKS.
