@@ -34,7 +34,7 @@ doctl compute certificate create --type custom --name cloudsandboxcert --leaf-ce
 ```
 
 ### Creating DOKS Cluster
-Create a DOKS cluster on DigitalOcean. For example, I'm creating a cluster with two worker nodes in Frankfurt. Here's the doctl command:
+Create a DOKS cluster on DigitalOcean. For example, I'm creating a cluster with two worker nodes in Frankfurt. Here's the `doctl` command:
 ```bash
 doctl kubernetes cluster create my-cluster --count 2 --size s-1vcpu-2gb
 ```
@@ -96,11 +96,10 @@ spec:
       targetPort: 80
 ```
 
-Add your origin certificate ID to `service.beta.kubernetes.io/do-loadbalancer-certificate-id`.
-This is the certificate we imported in a previous step. You can use doctl to list the available certificates:
+In the previous step, we imported the origin certificate from Cloudflare to DigitalOcean. Every imported certificate is assigned an internal ID by DigitalOcean. To inform the load balancer which certificate to use, add the internal ID of your origin certificate to the `service.beta.kubernetes.io/do-loadbalancer-certificate-id` attribute. To find the available certificates and their respective IDs, use the `doctl` command:
+
 ```bash
 doctl compute certificate list
-```
 
 Note that the allow rules in `service.beta.kubernetes.io/do-loadbalancer-allow-rules` only list Cloudflare's IP ranges. This means that the load balancer will only accept traffic coming from Cloudflare. Clients won't be able to circumvent Cloudflare by directly connecting to a load balancer's IP address on DigitalOcean. An up-to-date list of Cloudflare's IPs is available here: [Cloudflare IP Ranges](https://www.cloudflare.com/ips/)
 
