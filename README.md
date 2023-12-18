@@ -139,6 +139,8 @@ We will use `curl` to verify our Kubernetes application, which runs an [echo ser
 }
 ````
 
+Note how Cloudflare utilizes the `x-forwarded-for` attribute to pass the client's IP address to an origin server on DigitalOcean. This allows the origin server to track connections. Such data can later be used for business intelligence and other purposes.
+
 - Traffic will get encrypted between the client and Cloudflare.
 - Traffic will get encrypted between Cloudflare and DigitalOcean load balancer.
 - Traffic will not get encrypted between load balancer and Kubernetes worker nodes.
