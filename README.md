@@ -120,7 +120,12 @@ Note down the EXTERNAL-IP address. In Cloudflare, navigate back to your domain >
 This is all the required configuration. It's now time to verify the setup.
 
 ## Verification
-We will use `curl` to verify our Kubernetes application, which runs an [echo server](https://github.com/Ealenn/Echo-Server). An echo server is a type of server that replicates the HTTPS request sent by the client and presents it back. Below is an example of the reply. I've only included the part with the headers that we are interested in.
+We will use `curl` to verify our Kubernetes application, which runs an [echo server](https://github.com/Ealenn/Echo-Server). An echo server is a type of server that replicates the HTTPS request sent by the client and presents it back.
+
+```bash
+curl https://cloudsandbox.online | jq
+```
+Below is an example of the reply. I've only included the part with the headers that we are interested in.
 
 ```json
 "headers": {
@@ -141,6 +146,19 @@ We will use `curl` to verify our Kubernetes application, which runs an [echo ser
 
 Note how Cloudflare utilizes the `x-forwarded-for` attribute to pass the client's IP address to an origin server on DigitalOcean. This allows the origin server to track connections. Such data can later be used for business intelligence and other purposes.
 
-- Traffic will get encrypted between the client and Cloudflare.
-- Traffic will get encrypted between Cloudflare and DigitalOcean load balancer.
-- Traffic will not get encrypted between load balancer and Kubernetes worker nodes.
+## Conclusion
+This tutorial has guided you through setting up Cloudflare with a DOKS deployment to enhance the security and performance of web applications.
+
+We've secured traffic between the client and Cloudflare, as well as between Cloudflare and DigitalOcean. By implementing Cloudflare's IP ranges in DigitalOcean's load balancer, we limit access to the DOKS infrastructure, ensuring that traffic only passes through Cloudflare. This configuration mitigates the risk of direct attacks on the infrastructure. 
+
+In summary, this integration leverages the strengths of both Cloudflare and DigitalOcean, providing a solution for businesses looking to protect their online presence while ensuring high availability and performance.
+
+## References
+- DigitalOcean: [Adding Load Balancers](https://docs.digitalocean.com/products/kubernetes/how-to/add-load-balancers/)
+- DigitalOcean: [Configuring Load Balancers](https://docs.digitalocean.com/products/kubernetes/how-to/configure-load-balancers/)
+- DigitalOcean: [Managed Kubernetes Details](https://docs.digitalocean.com/products/kubernetes/details/managed/)
+- Cloudflare: [SSL Concepts](https://developers.cloudflare.com/ssl/concepts/)
+- Cloudflare: [How Cloudflare Works](https://developers.cloudflare.com/fundamentals/concepts/how-cloudflare-works/)
+- Cloudflare: [HTTP Request Headers Reference](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/)
+- Cloudflare: [IP Ranges](https://www.cloudflare.com/ips/)
+- GitHub: [Echo Server](https://github.com/Ealenn/Echo-Server)
