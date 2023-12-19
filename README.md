@@ -29,6 +29,8 @@ In the Cloudflare control panel, navigate to your domain > SSL/TLS > Edge Certif
 
 In the Cloudflare control panel, go to your domain > SSL/TLS > Overview and change the encryption mode to "Full (strict)". This ensures that traffic is encrypted not only between the client and Cloudflare but also between Cloudflare and DigitalOcean.
 
+![Full (strict)](assets/03-full-strict.png)
+
 To encrypt traffic between Cloudflare and DigitalOcean, you will need to add a certificate to DigitalOcean's load balancer. This step will be covered later. For now, create and download this certificate from Cloudflare. Go to your domain > SSL/TLS > Origin Server and click "Create Certificate". Do not change the Key Format from PEM. Copy the data from the "Origin Certificate" and save it as `origin_certificate.pem`. Copy the data from the "Private Key" and save it as `private_key.pem`.
 
 At this point, we have configured everything needed in Cloudflare. We can now proceed to DigitalOcean.
