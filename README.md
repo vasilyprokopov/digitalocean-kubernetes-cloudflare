@@ -16,11 +16,11 @@ Ensure the following tools are configured on your computer:
 ## Configuration
 
 ### Adding a Site to Cloudflare
-Have your domain name registered and ready. Use it to add a new site in Cloudflare. Cloudflare will manage the DNS records for this domain. Remember to update your authoritative DNS servers, or nameservers, at your domain registrar (such as GoDaddy or Namecheap) to point to Cloudflare. For this guide, I will use the **free** Cloudflare plan and my domain `cloudsandbox.online` as an example.
+Have your domain name registered and ready. Use it to add a new site in Cloudflare. Cloudflare will manage the DNS records for this domain. For this guide, I will use the **free** Cloudflare plan and my domain `cloudsandbox.online` as an example.
 
 ![Adding a Site to Cloudflare](assets/01-add-site-to-cloudflare.png)
 
-You will be prompted to review your DNS records, but do not add anything just yet.
+You will be prompted to review your DNS records, but do not add anything just yet. Remember to update your authoritative DNS servers, or nameservers, at your domain registrar (such as GoDaddy or Namecheap) to point to Cloudflare.
 
 ### Enabling HTTPs End-to-End
 In the Cloudflare control panel, navigate to your domain > SSL/TLS > Edge Certificates and enable "Always Use HTTPS". This ensures that traffic is always encrypted between the client and Cloudflare.
