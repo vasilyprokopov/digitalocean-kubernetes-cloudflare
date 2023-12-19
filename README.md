@@ -20,6 +20,8 @@ Have your domain name registered and ready. Use it to add a new site in Cloudfla
 
 ![Adding a Site to Cloudflare](assets/01-add-site-to-cloudflare.png)
 
+You will be prompted to review your DNS records, but do not add anything just yet.
+
 ### Enabling HTTPs End-to-End
 In the Cloudflare control panel, navigate to your domain > SSL/TLS > Edge Certificates and enable "Always Use HTTPS". This ensures that traffic is always encrypted between the client and Cloudflare.
 
