@@ -126,7 +126,9 @@ After a few minutes, check the Kubernetes Services:
 kubectl get services -o wide
 ```
 
-Note down the EXTERNAL-IP address. In Cloudflare, navigate back to your domain > DNS > Records and add an A-record pointing to this address.
+Note down the EXTERNAL-IP address. In Cloudflare, navigate back to your domain > DNS > Records and add an A-record pointing to this IP address.
+
+![Add DNS Record](assets/05-add-dns-record.png)
 
 This is all the required configuration. It's now time to verify the setup.
 
