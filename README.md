@@ -121,7 +121,7 @@ You can create this application in Kubernetes by applying the manifest file:
 kubectl apply -f manifest.yaml
 ```
 
-After a few minutes, check the Kubernetes Services:
+After about 5 minutes, check the Kubernetes Services:
 ```bash
 kubectl get services -o wide
 ```
@@ -157,14 +157,14 @@ Below is an example of the reply. I've only included the part with the headers t
 }
 ````
 
-Note how Cloudflare utilizes the `x-forwarded-for` attribute to pass the client's IP address to an origin server on DigitalOcean. This allows the origin server to track connections. Such data can later be used for business intelligence and other purposes.
+Note how Cloudflare utilizes the `x-forwarded-for` attribute to pass the client's IP address to your application on DigitalOcean. This allows the application to track connections. Such data can later be used for business intelligence and other purposes.
 
 ## Conclusion
-This tutorial has guided you through setting up Cloudflare with a DOKS deployment to enhance the security and performance of web applications.
+This tutorial has guided you through setting up Cloudflare with a DOKS deployment to enhance the security of web applications.
 
 We've secured traffic between the client and Cloudflare, as well as between Cloudflare and DigitalOcean. By implementing Cloudflare's IP ranges in DigitalOcean's load balancer, we limit access to the DOKS infrastructure, ensuring that traffic only passes through Cloudflare. This configuration mitigates the risk of direct attacks on the infrastructure. 
 
-In summary, this integration leverages the strengths of both Cloudflare and DigitalOcean, providing a solution for businesses looking to protect their online presence while ensuring high availability and performance.
+In summary, this integration leverages the strengths of both Cloudflare and DigitalOcean, providing a solution for businesses looking to protect their online presence.
 
 ## References
 - DigitalOcean: [Adding Load Balancers](https://docs.digitalocean.com/products/kubernetes/how-to/add-load-balancers/)
