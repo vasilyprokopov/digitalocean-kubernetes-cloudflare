@@ -31,12 +31,12 @@ In the Cloudflare control panel, go to your domain > SSL/TLS > Overview and chan
 
 ![Full (strict)](assets/03-full-strict.png)
 
-To encrypt traffic between Cloudflare and DigitalOcean, you will need to add a certificate to DigitalOcean's load balancer. This step will be covered later. For now, create and download this certificate from Cloudflare. Go to your domain > SSL/TLS > Origin Server and click "Create Certificate". Do not change the Key Format from PEM. Copy the data from the "Origin Certificate" and save it as `origin_certificate.pem`. Copy the data from the "Private Key" and save it as `private_key.pem`.
+To encrypt traffic between Cloudflare and DigitalOcean, you will need to add a certificate to DigitalOcean's load balancer. This step will be covered later. For now, create and download this certificate from Cloudflare. Go to your domain > SSL/TLS > Origin Server and click "Create Certificate". Do not change the Key Format from PEM.
 
 ![Origin Certificate](assets/04-origin-certificate-a.png)
 ![Origin Certificate](assets/04-origin-certificate-b.png)
 
-At this point, we have configured everything needed in Cloudflare. We can now proceed to DigitalOcean.
+Copy the data from the "Origin Certificate" and save it as `origin_certificate.pem`. Copy the data from the "Private Key" and save it as `private_key.pem`. At this point, we have configured everything needed in Cloudflare. We can now proceed to DigitalOcean.
 
 ### Importing Origin Certificate to DigitalOcean
 Now that you have two `.pem` files on your machine, you can import the origin certificate into DigitalOcean.
@@ -48,12 +48,12 @@ doctl compute certificate create --type custom --name cloudsandboxcert --leaf-ce
 ### Creating DOKS Cluster
 Create a DOKS cluster on DigitalOcean. For example, I'm creating a cluster with two worker nodes in Frankfurt. Here's the `doctl` command:
 ```bash
-doctl kubernetes cluster create my-cluster --count 2 --size s-1vcpu-2gb
+doctl kubernetes cluster create cloudsandbox-cluster --count 2 --size s-1vcpu-2gb
 ```
 
 To manage the cluster, you need to add an authentication token or certificate to your kubectl configuration file:
 ```bash
-doctl kubernetes cluster kubeconfig save my-cluster
+doctl kubernetes cluster kubeconfig save cloudsandbox-cluster
 ```
 
 I'm running a sample application in Kubernetes with a Deployment of two Pods and a Service that exposes this application through a managed DigitalOcean load balancer on ports 80 and 443. Here's the manifest file.
@@ -108,13 +108,13 @@ spec:
       targetPort: 80
 ```
 
-In the previous step, we imported the origin certificate from Cloudflare to DigitalOcean. Every imported certificate is assigned an internal ID by DigitalOcean. To inform the load balancer which certificate to use, add the internal ID of your origin certificate to the `service.beta.kubernetes.io/do-loadbalancer-certificate-id` attribute. To find the available certificates and their respective IDs, use the `doctl` command:
+We have imported the origin certificate from Cloudflare to DigitalOcean already. Every imported certificate is assigned an internal ID by DigitalOcean. To inform the load balancer which certificate to use, modify the manifest by adding the internal ID of your origin certificate to the `service.beta.kubernetes.io/do-loadbalancer-certificate-id` attribute. To find the available certificates and their respective IDs, use the `doctl` command:
 
 ```bash
 doctl compute certificate list
 ```
 
-Note that the allow rules in `service.beta.kubernetes.io/do-loadbalancer-allow-rules` only list Cloudflare's IP ranges. This means that the load balancer will only accept traffic coming from Cloudflare. Clients won't be able to circumvent Cloudflare by directly connecting to a load balancer's IP address on DigitalOcean. An up-to-date list of Cloudflare's IPs is available on the [Cloudflare IP Ranges](https://www.cloudflare.com/ips/) page.
+The allow rules in `service.beta.kubernetes.io/do-loadbalancer-allow-rules` only list Cloudflare's IP ranges. This means that the load balancer will only accept traffic coming from Cloudflare. Clients won't be able to circumvent Cloudflare by directly connecting to a load balancer's IP address on DigitalOcean. An up-to-date list of Cloudflare's IPs is available on the [Cloudflare IP Ranges](https://www.cloudflare.com/ips/) page.
 
 You can create this application in Kubernetes by applying the manifest file:
 ```bash
