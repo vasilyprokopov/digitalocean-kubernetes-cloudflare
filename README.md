@@ -175,3 +175,6 @@ In summary, this integration leverages the strengths of both Cloudflare and Digi
 - Cloudflare: [HTTP Request Headers Reference](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/)
 - Cloudflare: [IP Ranges](https://www.cloudflare.com/ips/)
 - GitHub: [Echo Server](https://github.com/Ealenn/Echo-Server)
+
+## Author
+Vasily Prokopov [@vasilyprokopov](https://github.com/vasilyprokopov/)
