@@ -7,6 +7,8 @@ DigitalOcean offers a managed Kubernetes service (DOKS) with basic DDoS protecti
 Let's imagine a web application running in DOKS. This application is a Kubernetes Deployment with a Service that publicly exposes it via DigitalOcean's managed load balancer. To access the application, a client connects via HTTPS to Cloudflare. Cloudflare inspects the request and gets it proxied to DigitalOcean over HTTPS. The load balancer on DigitalOcean receives the request, terminates TLS, and redirects it unencrypted over HTTP to one of the worker nodes. Terminating TLS on a load balancer is convenient for maintaining the TLS certificate at a single central point, thus avoiding the need to manage TLS certificates in a decentralized manner on worker nodes. The application then responds to the client through the same chain of proxies.
 ![Architecture Diagram](https://lucid.app/publicSegments/view/87e59f98-e6db-4a71-91c6-3e84f729682b/image.png)
 
+You might wonder why use a managed load balancer from DigitalOcean instead of Cloudflare. The DOKS worker nodes on DigitalOcean have ephemeral IP addresses that are inconvenient for DNS pointing. This means they could change with updates to the DOKS cluster, which would disrupt the DNS entries. In contrast, a managed load balancer provides a stable, persistent IP address, ensuring continuity for your Kubernetes deployment and its associated DNS records.
+
 ## Configuration Prerequisites
 Ensure the following tools are configured on your computer:
 - [doctl](https://docs.digitalocean.com/reference/doctl/how-to/install/)
