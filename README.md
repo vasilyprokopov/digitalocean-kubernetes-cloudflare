@@ -52,7 +52,7 @@ Create a DOKS cluster on DigitalOcean. For example, I'm creating a cluster with 
 doctl kubernetes cluster create cloudsandbox-cluster --count 2 --size s-1vcpu-2gb
 ```
 
-To manage the cluster, you need to add an authentication token or certificate to your kubectl configuration file:
+To manage the cluster from your computer, you need to add an authentication token or certificate to your kubectl configuration file:
 ```bash
 doctl kubernetes cluster kubeconfig save cloudsandbox-cluster
 ```
