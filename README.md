@@ -177,5 +177,5 @@ In summary, this integration leverages the strengths of both Cloudflare and Digi
 - Cloudflare: [IP Ranges](https://www.cloudflare.com/ips/)
 - GitHub: [Echo Server](https://github.com/Ealenn/Echo-Server)
 
-## Author
-Vasily Prokopov [@vasilyprokopov](https://github.com/vasilyprokopov/)
+## Contact
+If you wish to learn more about DigitalOcean's services, feel free to contact me at [vprokopov@digitalocean.com](mailto:vprokopov@digitalocean.com). You are also welcome to reach out to the sales team at [sales@digitalocean.com](mailto:sales@digitalocean.com). A global team of talented engineers will be happy to provide assistance.
