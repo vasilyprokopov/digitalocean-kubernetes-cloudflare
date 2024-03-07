@@ -178,6 +178,6 @@ In summary, this integration leverages the strengths of both Cloudflare and Digi
 - GitHub: [Echo Server](https://github.com/Ealenn/Echo-Server)
 
 ## Contact
-Vasily Prokopov, Solutions Engineer at DigitalOcean– [vprokopov@digitalocean.com](mailto:vprokopov@digitalocean.com)  
+Vasily Prokopov, Solutions Engineer at DigitalOcean – [vprokopov@digitalocean.com](mailto:vprokopov@digitalocean.com)  
 
 If you wish to learn more about DigitalOcean's services, you are welcome to reach out to the sales team at [sales@digitalocean.com](mailto:sales@digitalocean.com). A global team of talented engineers will be happy to provide assistance.
